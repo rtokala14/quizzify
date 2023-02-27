@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import HeroContent from "~/components/HeroContent";
 import Navbar from "~/components/Navbar";
 
 const Home: NextPage = () => {
@@ -12,6 +13,7 @@ const Home: NextPage = () => {
       </Head>
       <main className=" ">
         <Navbar />
+        <HeroContent />
       </main>
     </>
   );
