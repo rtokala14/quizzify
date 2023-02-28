@@ -38,9 +38,24 @@ function Create() {
   return (
     <div className=" mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center gap-3 px-4 pt-16">
       {isFinished ? (
-        <div>{`${window.location.origin}/play/${
-          newQuizData ? newQuizData.id : ""
-        }`}</div>
+        <div className="card-bordered card max-w-3xl p-3">
+          <div className="card-title">
+            Congratulations!! Your quiz has been created. Click the link below
+            to play it yourself, or copy and share it with your friends and
+            family! Happy Quizzing...
+          </div>
+          <div className="card-body items-center">
+            <a
+              target={"_blank"}
+              rel={"noreferrer"}
+              href={`${window.location.origin}/play/${
+                newQuizData ? newQuizData.id : ""
+              }`}
+            >
+              <button className="btn-primary btn">Try it out</button>
+            </a>
+          </div>
+        </div>
       ) : (
         <>
           <div className=" flex w-full items-center justify-between pt-2">
