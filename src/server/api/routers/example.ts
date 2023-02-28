@@ -2,15 +2,32 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
-export const exampleRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
+export const quizzesRouter = createTRPCRouter({
+  saveQuiz: publicProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        quizData: z.array(
+          z.object({
+            id: z.string(),
+            title: z.string(),
+            mode: z.string(),
+            options: z.array(z.string()),
+            qNum: z.number(),
+          })
+        ),
+      })
+    )
+    .mutation(({ input, ctx }) => {
+      const { prisma } = ctx;
+
+      const res = prisma.quiz.create({
+        data: {
+          title: input.title,
+          questionData: input.quizData,
+        },
+      });
+
+      return res;
     }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.example.findMany();
-  }),
 });
