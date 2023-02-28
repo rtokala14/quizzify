@@ -4,6 +4,9 @@ import QuestionsList from "~/components/QuestionsList";
 
 export type Question = {
   id: number;
+  title: string;
+  mode: string;
+  options: string[];
 };
 
 function Create() {
