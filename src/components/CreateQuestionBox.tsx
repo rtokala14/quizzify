@@ -22,10 +22,11 @@ function CreateQuestionBox({
 
   function handleSubmit() {
     const quesData: Question = {
-      id: quesNumber,
+      id: crypto.randomUUID(),
       title: quesTitle,
       mode: selectedMode,
       options: options,
+      qNum: quesNumber,
     };
     setQuestions([...questions, quesData]);
     setSelectedMode("");
@@ -37,7 +38,10 @@ function CreateQuestionBox({
     <div className=" card-bordered card w-full max-w-xl lg:w-2/4">
       <div className=" card-body">
         <div className="card-title">{`Question #${quesNumber}`}</div>
-        <form className=" form-control gap-4">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className=" form-control gap-4"
+        >
           <div className=" flex items-center gap-2">
             <label className="label">Title: </label>
             <input
