@@ -30,4 +30,16 @@ export const quizzesRouter = createTRPCRouter({
 
       return res;
     }),
+
+  getQuiz: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      const res = ctx.prisma.quiz.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+
+      return res;
+    }),
 });

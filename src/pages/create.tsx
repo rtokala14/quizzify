@@ -38,7 +38,7 @@ function Create() {
   return (
     <div className=" mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center gap-3 px-4 pt-16">
       {isFinished ? (
-        <div>{`${window.location.origin}/${
+        <div>{`${window.location.origin}/play/${
           newQuizData ? newQuizData.id : ""
         }`}</div>
       ) : (
