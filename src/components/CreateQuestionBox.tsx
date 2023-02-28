@@ -51,9 +51,10 @@ function CreateQuestionBox({
           <select
             className="select-bordered select"
             value={""}
+            defaultValue={""}
             onChange={(e) => setSelectedMode(e.target.value)}
           >
-            <option value="" disabled selected>
+            <option value="" disabled>
               Question type
             </option>
             <option value="text">Text input</option>
@@ -73,7 +74,7 @@ function CreateQuestionBox({
           {selectedMode === "multiple" && (
             <div className=" mx-2 flex flex-col gap-3">
               {options.map((option) => (
-                <div className=" flex items-center gap-4">
+                <div key={option.length} className=" flex items-center gap-4">
                   <div className=" badge badge-xs"></div>
                   <div>{option}</div>
                 </div>
@@ -97,7 +98,7 @@ function CreateQuestionBox({
                   />
                   <div
                     className="btn-square btn-sm btn"
-                    onClick={(e) => {
+                    onClick={() => {
                       setOptions([...options, optionText]);
                       setOptionText("");
                     }}

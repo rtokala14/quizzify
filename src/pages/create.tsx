@@ -11,6 +11,7 @@ export type Question = {
 
 function Create() {
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [quizTitle, setQuizTitle] = useState("");
 
   return (
     <div className=" mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center gap-3 px-4 pt-16">
@@ -20,6 +21,16 @@ function Create() {
           <button className="btn-outline btn">Preview</button>
           <button className=" btn-primary btn">Finish</button>
         </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <label className="label">Quiz Name:</label>
+        <input
+          className="input-bordered input"
+          type="text"
+          placeholder="The right way to pizza..."
+          value={quizTitle}
+          onChange={(e) => setQuizTitle(e.target.value)}
+        />
       </div>
       <CreateQuestionBox
         quesNumber={questions.length + 1}

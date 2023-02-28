@@ -1,4 +1,4 @@
-import { Question } from "~/pages/create";
+import { type Question } from "~/pages/create";
 
 function QuestionBox({ question }: { question: Question }) {
   return (
