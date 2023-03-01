@@ -54,8 +54,8 @@ function CreateQuestionBox({
           </div>
           <select
             className="select-bordered select"
-            value={""}
-            defaultValue={""}
+            value={selectedMode}
+            // defaultValue={""}
             onChange={(e) => setSelectedMode(e.target.value)}
           >
             <option value="" disabled>
