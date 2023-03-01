@@ -10,6 +10,7 @@ export type Question = {
   mode: string;
   options: string[];
   qNum: number;
+  correctAnswer?: string;
 };
 
 function Create() {

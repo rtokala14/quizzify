@@ -14,6 +14,7 @@ export const quizzesRouter = createTRPCRouter({
             mode: z.string(),
             options: z.array(z.string()),
             qNum: z.number(),
+            correctAnswer: z.string().optional(),
           })
         ),
       })

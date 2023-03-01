@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Check, Plus } from "lucide-react";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { type Question } from "~/pages/create";
 
@@ -19,6 +19,7 @@ function CreateQuestionBox({
   // for multiple options
   const [options, setOptions] = useState<string[]>([]);
   const [optionText, setOptionText] = useState("");
+  const [currectAns, setCurrectAns] = useState("");
 
   function handleSubmit() {
     const quesData: Question = {
@@ -27,12 +28,14 @@ function CreateQuestionBox({
       mode: selectedMode,
       options: options,
       qNum: quesNumber,
+      correctAnswer: currectAns,
     };
     setQuestions([...questions, quesData]);
     setSelectedMode("");
     setQuesTitle("");
     setOptionText("");
     setOptions([]);
+    setCurrectAns("");
   }
   return (
     <div className=" card-bordered card w-full max-w-xl lg:w-2/4">
@@ -58,12 +61,19 @@ function CreateQuestionBox({
             // defaultValue={""}
             onChange={(e) => setSelectedMode(e.target.value)}
           >
-            <option value="" disabled>
+            <option className="btn-ghost btn pt-2 capitalize" value="" disabled>
               Question type
             </option>
-            <option value="text">Text input</option>
-            <option value="multiple">Multiple choice</option>
-            <option value="truth/false">True / False</option>
+            {/* <option value="text">Text input</option> */}
+            <option className="btn-ghost btn pt-2 capitalize" value="multiple">
+              Multiple choice
+            </option>
+            <option
+              className="btn-ghost btn pt-2 capitalize"
+              value="truth/false"
+            >
+              True / False
+            </option>
           </select>
 
           {/* Text input  */}
@@ -78,9 +88,23 @@ function CreateQuestionBox({
           {selectedMode === "multiple" && (
             <div className=" mx-2 flex flex-col gap-3">
               {options.map((option) => (
-                <div key={option.length} className=" flex items-center gap-4">
-                  <div className=" badge badge-xs"></div>
-                  <div>{option}</div>
+                <div
+                  key={option.length}
+                  className={` flex items-center justify-between gap-4 rounded-md border border-neutral p-2
+                      ${currectAns === option ? "border-success" : ""} `}
+                >
+                  <div className=" flex items-center justify-start gap-2">
+                    <div className=" badge badge-xs"></div>
+                    <div>{option}</div>
+                  </div>
+                  <button
+                    onClick={() => setCurrectAns(option)}
+                    className={`btn-ghost btn-square btn-xs btn ${
+                      currectAns === option ? "btn-disabled" : ""
+                    }`}
+                  >
+                    <Check />
+                  </button>
                 </div>
               ))}
               {options.length <= 5 ? (
@@ -118,15 +142,39 @@ function CreateQuestionBox({
 
           {/* True / False */}
           {selectedMode === "truth/false" && (
-            <div>Two options, true and false will be given</div>
+            <div>
+              <h4>Select the correct option:</h4>
+              <label
+                onClick={() => setCurrectAns("true")}
+                className="label cursor-pointer justify-start gap-2 rounded-md outline-1 hover:outline"
+              >
+                <input type="radio" className="radio" name={"torf"} />
+                <span className="label-text">True</span>
+              </label>
+              <label
+                onClick={() => setCurrectAns("false")}
+                className="label cursor-pointer justify-start gap-2 rounded-md outline-1 hover:outline"
+              >
+                <input type="radio" className="radio" name={"torf"} />
+                <span className="label-text">False</span>
+              </label>
+            </div>
           )}
         </form>
+        {questions.length !== 0 && currectAns === "" && selectedMode !== "" && (
+          <div className="mt-2 text-center text-error">
+            Select a current answer to save the question
+          </div>
+        )}
+
         <div className=" card-actions mt-2 justify-end">
           <button
             className=" btn-outline btn gap-1 capitalize"
             onClick={handleSubmit}
             type="submit"
-            disabled={quesTitle === "" || selectedMode === ""}
+            disabled={
+              quesTitle === "" || selectedMode === "" || currectAns === ""
+            }
           >
             <Plus />
             <span>Add</span>
