@@ -23,6 +23,7 @@ function Create() {
     mutate: createMutation,
     data: newQuizData,
     isLoading,
+    isSuccess,
   } = api.quiz.saveQuiz.useMutation();
 
   function handleFinish() {
@@ -53,7 +54,11 @@ function Create() {
                 newQuizData ? newQuizData.id : ""
               }`}
             >
-              <button className="btn-primary btn">Try it out</button>
+              {isSuccess ? (
+                <button className="btn-disabled loading btn"></button>
+              ) : (
+                <button className="btn-primary btn">Try it out</button>
+              )}
             </a>
           </div>
         </div>
