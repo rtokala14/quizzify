@@ -54,7 +54,7 @@ function Create() {
                 newQuizData ? newQuizData.id : ""
               }`}
             >
-              {isSuccess ? (
+              {isLoading ? (
                 <button className="btn-disabled loading btn"></button>
               ) : (
                 <button className="btn-primary btn">Try it out</button>
